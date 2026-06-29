@@ -38,8 +38,8 @@ async function handleGet(c: Context<{ Bindings: Env }>, tableName: string, id?: 
             if (['sort_by', 'order', 'limit', 'offset'].includes(key)) continue;
             
             const sanitizedKey = sanitizeIdentifier(key);
-            conditions.push(`${sanitizedKey} LIKE '%?%'`);
-            params.push(value);
+            conditions.push(`${sanitizedKey} LIKE ?`);
+            params.push(`%${value}%`);
         }
 
         // Add WHERE clause if there are conditions
