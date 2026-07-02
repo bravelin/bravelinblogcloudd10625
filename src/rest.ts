@@ -33,14 +33,26 @@ async function handleGet(c: Context<{ Bindings: Env }>, tableName: string, id?: 
             params.push(id);
         }
 
-        // Handle search parameters (basic filtering)
-        for (const [key, value] of searchParams.entries()) {
-            if (['sort_by', 'order', 'limit', 'offset'].includes(key)) continue;
-            
-            const sanitizedKey = sanitizeIdentifier(key);
-            conditions.push(`${sanitizedKey} LIKE ?`);
-            params.push(`%${value}%`);
+        const searchType = searchParams.get('search__type');
+        let sanitizedKey = '';
+        if (searchType === 'exact') {
+            for (const [key, value] of searchParams.entries()) {
+                if (['sort_by', 'order', 'limit', 'offset', 'search__type'].includes(key)) continue;
+                sanitizedKey = sanitizeIdentifier(key);
+                conditions.push(`${sanitizedKey} = ?`);
+                params.push(value);
+            }
+        } else {
+            for (const [key, value] of searchParams.entries()) {
+                if (['sort_by', 'order', 'limit', 'offset', 'search__type'].includes(key)) continue;
+                sanitizedKey = sanitizeIdentifier(key);
+                conditions.push(`${sanitizedKey} LIKE ?`);
+                params.push(`%${value}%`);
+            }
         }
+
+        // Handle search parameters (basic filtering)
+        
 
         // Add WHERE clause if there are conditions
         if (conditions.length > 0) {
