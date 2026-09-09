@@ -62,6 +62,11 @@ export default {
         // CRUD REST endpoints made available to all of our tables
         app.all('/rest/*', authMiddleware, handleRest);
 
+        // WX interface handle
+        app.get('/wx', (c) => {
+            return c.text('Hello World WX');
+        });
+
         // Execute a raw SQL statement with parameters with this route
         app.post('/query', authMiddleware, async (c) => {
             try {

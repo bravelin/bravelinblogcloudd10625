@@ -1,0 +1,13 @@
+// 将设置放入此文件中以覆盖默认值和用户设置。
+{
+    "editor.fontSize": 18,
+    "editor.fontFamily": "'Fira Code', Consolas, Microsoft YaHei, 'Courier New', monospace",
+    "editor.lineHeight": 35,
+    "editor.letterSpacing": 1,
+    "editor.tabSize": 4,
+    "extensions.ignoreRecommendations": true,
+    "typescript.check.npmIsInstalled": false,
+    "terminal.integrated.lineHeight": 1.8,
+    "javascript.format.insertSpaceBeforeFunctionParenthesis": true,
+    "vue.inlayHints.optionsWrapper": false
+}
