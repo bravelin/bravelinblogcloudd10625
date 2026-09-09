@@ -1,6 +1,7 @@
 import { Hono, Context, Next } from "hono";
 import { cors } from "hono/cors";
 import { handleRest } from './rest';
+import { handleWx } from './wx';
 
 export interface Env {
     DB: D1Database;
@@ -63,9 +64,7 @@ export default {
         app.all('/rest/*', authMiddleware, handleRest);
 
         // WX interface handle
-        app.get('/wx', (c) => {
-            return c.text('Hello World WX');
-        });
+        app.post('/wx/login', handleWx);
 
         // Execute a raw SQL statement with parameters with this route
         app.post('/query', authMiddleware, async (c) => {
